@@ -11,11 +11,13 @@ function App() {
   const [loadingSearch, setLoadingSearch] = useState(false);
   const [loadingUpload, setLoadingUpload] = useState(false);
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8002";
+
   const handleSearch = async () => {
     if (!query) return;
     setLoadingSearch(true);
     try {
-      const res = await axios.post("http://localhost:8002/search", {
+      const res = await axios.post(`${API_URL}/search`, {
         query,
         top_k: 5
       });
@@ -31,7 +33,7 @@ function App() {
     if (!newDoc) return;
     setLoadingUpload(true);
     try {
-      const res = await axios.post("http://localhost:8002/add-document", {
+      const res = await axios.post(`${API_URL}/add-document`, {
         text: newDoc
       });
       setUploadMsg("Document added successfully!");
