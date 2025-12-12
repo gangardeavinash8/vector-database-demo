@@ -11,7 +11,7 @@ function App() {
   const [loadingSearch, setLoadingSearch] = useState(false);
   const [loadingUpload, setLoadingUpload] = useState(false);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8002";
+  const API_URL = "/api";
 
   const handleSearch = async () => {
     if (!query) return;
