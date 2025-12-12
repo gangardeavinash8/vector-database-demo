@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search-service
+  template:
+    metadata:
+      labels:
+        app: search-service
+    spec:
+      containers:
+        - name: search-service
+          image: DOCKER_USERNAME/search-service:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: EMBEDDING_URL
+              value: "http://embedding-service:80/embed"
+            - name: QDRANT_URL
+              value: "http://qdrant:6333"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: search-service
+  ports:
+    - port: 80
+      targetPort: 8000
