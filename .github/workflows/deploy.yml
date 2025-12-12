@@ -44,6 +44,8 @@ jobs:
         with:
           context: ./sementic-frontend
           push: true
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
           tags: ${{ secrets.DOCKER_USERNAME }}/sementic-frontend:latest
 
       - name: Configure AWS Credentials
